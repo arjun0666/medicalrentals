@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Equipment Rentals - Equipments</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Medical Equipment Rentals</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="equipments.html">Equipments</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="products">
+        <h2>Our Equipment for Rent</h2>
+        <div class="product-list">
+            <div class="product-card">
+                <img src="images/wheelchair.jpg" alt="Wheelchair">
+                <h3>Wheelchair</h3>
+                <p>Price: ₹400/week</p>
+            </div>
+            <div class="product-card">
+                <img src="images/oxygen.jpg" alt="Oxygen Concentrator">
+                <h3>Oxygen Concentrator</h3>
+                <p>Price: ₹650/week</p>
+            </div>
+            <div class="product-card">
+                <img src="images/hospital-bed.jpg" alt="Hospital Bed">
+                <h3>Hospital Bed</h3>
+                <p>Price: ₹800/week</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Medical Equipment Rentals | All Rights Reserved</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Equipment Rentals</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('images/rental.jpg') no-repeat center center/cover;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1rem;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Medical Equipment Rentals</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a onclick="showSection('home')">Home</a></li>
+                <li><a onclick="showSection('products')">Equipments</a></li>
+                <li><a onclick="showSection('added-section')">Added Equipments</a></li>
+                <li><a onclick="showSection('contact')">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Equipment Section -->
+    <section id="products">
+        <h2>Our Equipment for Rent</h2>
+        <div class="product-list">
+            <div class="product-card">
+                <img src="images/wheelchair.jpg" alt="Wheelchair">
+                <h3>Wheelchair</h3>
+                <p>Price: ₹400/week</p>
+                <button onclick="addEquipment('Wheelchair', 400)">Add</button>
+            </div>
+            <div class="product-card">
+                <img src="images/oxygen.jpg" alt="Oxygen Concentrator">
+                <h3>Oxygen Concentrator</h3>
+                <p>Price: ₹650/week</p>
+                <button onclick="addEquipment('Oxygen Concentrator', 650)">Add</button>
+            </div>
+            <div class="product-card">
+                <img src="images/hospital-bed.jpg" alt="Hospital Bed">
+                <h3>Hospital Bed</h3>
+                <p>Price: ₹800/week</p>
+                <button onclick="addEquipment('Hospital Bed', 800)">Add</button>
+            </div>
+            <div class="product-card">
+                <img src="images/crutches.jpg" alt="Crutches">
+                <h3>Crutches</h3>
+                <p>Price: ₹1600/week</p>
+                <button onclick="addEquipment('Crutches', 1600)">Add</button>
+            </div>
+            <div class="product-card">
+                <img src="images/nebulizer.jpg" alt="Nebulizer Machine">
+                <h3>Nebulizer Machine</h3>
+                <p>Price: ₹2400/week</p>
+                <button onclick="addEquipment('Nebulizer Machine', 2400)">Add</button>
+            </div>
+            <div class="product-card">
+                <img src="images/bp.jpg" alt="Blood Pressure Monitor">
+                <h3>Blood Pressure Monitor</h3>
+                <p>Price: ₹200/week</p>
+                <button onclick="addEquipment('Blood Pressure Monitor', 200)">Add</button>
+            </div>
+        </div>
+        <p id="total-added-items">Total Equipment Added: 0</p>
+    </section>
+
+    <section id="added-section">
+        <h2>Added Equipment</h2>
+        <div id="added-equipment">
+            <p>No equipment added yet.</p>
+        </div>
+    </section>
+
+    <script>
+        let addedEquipment = {};
+
+        function showSection(sectionId) {
+            document.querySelectorAll('section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        function addEquipment(name, price) {
+            if (addedEquipment[name]) {
+                addedEquipment[name].quantity++;
+            } else {
+                addedEquipment[name] = { price: price, quantity: 1 };
+            }
+            updateAddedEquipment();
+        }
+
+        function updateAddedEquipment() {
+            const addedSection = document.getElementById('added-equipment');
+            const totalItems = document.getElementById('total-added-items');
+            addedSection.innerHTML = '';
+
+            let totalCount = 0;
+            if (Object.keys(addedEquipment).length === 0) {
+                addedSection.innerHTML = '<p>No equipment added yet.</p>';
+                totalItems.innerText = 'Total Equipment Added: 0';
+                return;
+            }
+
+            Object.keys(addedEquipment).forEach(name => {
+                const item = addedEquipment[name];
+                totalCount += item.quantity;
+
+                const div = document.createElement('div');
+                div.classList.add('added-item');
+                div.innerHTML = `
+                    <span>${name} - ₹${item.price} per week</span>
+                    <span>
+                        <button onclick="changeQuantity('${name}', -1)">-</button>
+                        ${item.quantity}
+                        <button onclick="changeQuantity('${name}', 1)">+</button>
+                    </span>
+                `;
+                addedSection.appendChild(div);
+            });
+
+            totalItems.innerText = `Total Equipment Added: ${totalCount}`;
+        }
+
+        function changeQuantity(name, change) {
+            if (addedEquipment[name]) {
+                addedEquipment[name].quantity += change;
+                if (addedEquipment[name].quantity <= 0) {
+                    delete addedEquipment[name];
+                }
+                updateAddedEquipment();
+            }
+        }
+    </script>
+</body>
+</html>
